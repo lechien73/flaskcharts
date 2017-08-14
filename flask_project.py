@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
-DBS_NAME = 'project2'
+DBS_NAME = 'lifedata'
 COLLECTION_NAME = 'hpi'
 
 
@@ -18,8 +18,8 @@ def index():
     """
     return render_template("charts.html")
 
-@app.route("/project2/hpi")
-def project2_hpi():
+@app.route("/lifedata/hpi")
+def lifedata_hpi():
     """
     A Flask view to serve the project data from
     MongoDB in JSON format.

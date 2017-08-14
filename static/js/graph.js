@@ -1,5 +1,5 @@
 queue()
-   .defer(d3.json, "/project2/hpi")
+   .defer(d3.json, "/lifedata/hpi")
    .await(makeGraphs);
 
 function makeGraphs(error, projectsJson) {
