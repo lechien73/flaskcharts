@@ -11,11 +11,11 @@ function makeGraphs(error, projectsJson) {
 
     //Define Dimensions
     var countryDim = ndx.dimension(function (d) {
-        return d["Country"];  //  matches
+        return d["Country"]; 
     });
 
     var ccDim = ndx.dimension(function (d) {
-        return d["CountryCode"];  //  matches
+        return d["CountryCode"];
     });
 
     //Calculate metrics
@@ -41,6 +41,8 @@ function makeGraphs(error, projectsJson) {
         .elasticY(true)
         .xAxisLabel("Countries")
         .yAxis().ticks(4);
+
+    // Load the json geodata first
 
     d3.json("/static/lib/js/countries.json", function(worldcountries) {
     worldChart
