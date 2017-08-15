@@ -1,8 +1,20 @@
+window.onresize = function() { 
+    location.reload(); 
+}
+
 queue()
    .defer(d3.json, "/lifedata/hpi")
    .await(makeGraphs);
 
 function makeGraphs(error, projectsJson) {
+
+    var mapWidth = $("#World-chart").width();
+    var mapHeight = mapWidth / 2.222;
+    var mapScale = mapWidth / 6.667;
+    var translateX = mapWidth / 2;
+    var translateY = mapHeight / 2;
+
+    console.log(mapWidth);   
 
     lifehpi = projectsJson;
 
@@ -31,7 +43,7 @@ function makeGraphs(error, projectsJson) {
     var colors = d3.scale.linear().range(["#17202A", "#424949", "#4D5656", "#626567", "#7B7D7D", "#B3B6B7", "#D0D3D4"]);
 
     countryChart
-        .width(1000)
+        .width(mapWidth)
         .height(200)
         .margins({top: 10, right: 40, bottom: 100, left: 40})
         .dimension(countryDim)
@@ -47,8 +59,8 @@ function makeGraphs(error, projectsJson) {
     d3.json("/static/lib/js/countries.json", function(worldcountries) {
     worldChart
         .dimension(ccDim)
-        .width(1000)
-        .height(450)
+        .width(mapWidth)
+        .height(mapHeight)
         .group(worldlifeYears)
         .colors(d3.scale.quantize().range(["#17202A", "#424949", "#4D5656", "#626567", "#7B7D7D", "#B3B6B7", "#D0D3D4"]))
         .colorDomain([0, 90])
@@ -57,6 +69,8 @@ function makeGraphs(error, projectsJson) {
             return d.id;
         })
         .projection(d3.geo.mercator()
+            .translate([translateX,translateY])
+            .scale(mapScale)
             );
 
    dc.renderAll();
